@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "purpose": "degraded-mode-backup-evidence",
+  "files": [
+    {
+      "path": "backend/app/fixtures/broken-signal-v1.json",
+      "sha256": "50de17850f63daeb92fb416bb7ed8b0f49d7d62bdbfc9faba0f8119a08f18212",
+      "bytes": 8071
+    },
+    {
+      "path": "backend/app/fixtures/prophet-telemetry-v1.json",
+      "sha256": "083ee77b30c9c2ab9b229a1eb89ef1783f00cc550609553932d5600f3d68ac28",
+      "bytes": 3606
+    },
+    {
+      "path": "backend/app/fixtures/perf-review-latest.json",
+      "sha256": "a336d26d3e2f6fff58ed602aafd1d741c5788f08f573e298a53338c5ee961d85",
+      "bytes": 232
+    },
+    {
+      "path": "docs/DEMO_RUNBOOK.md",
+      "sha256": "65a204b9d48087da34c23035461eb9b43b4504148fceb498b3241c3e7a4a5d25",
+      "bytes": 5913
+    },
+    {
+      "path": "docs/OPERATOR_RUNBOOK.md",
+      "sha256": "cea6e5b3be6005e80300e381a61039b368ed563034ad2f186e7fb1ead4acf235",
+      "bytes": 4688
+    }
+  ]
+}

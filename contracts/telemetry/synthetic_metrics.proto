@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package ghostfabric.telemetry.v1;
+
+// Synthetic metric batch contract for a future IngestService.
+// Not wired to a live gRPC server in this repository revision.
+
+message MetricPoint {
+  string name = 1;
+  double value = 2;
+  map<string, string> tags = 3;
+  int64 scenario_time_ms = 4;
+}
+
+message MetricBatch {
+  string batch_id = 1;
+  string correlation_id = 2;
+  bool synthetic = 3;          // must be true for pilot ingest
+  string fixture_label = 4;    // e.g. prophet-telemetry-v1
+  repeated MetricPoint points = 5;
+}
+
+message IngestAck {
+  string batch_id = 1;
+  uint32 accepted = 2;
+  string notice = 3;           // review-only; never authorizes action
+}
+
+service IngestService {
+  rpc PublishMetrics (stream MetricBatch) returns (IngestAck);
+}

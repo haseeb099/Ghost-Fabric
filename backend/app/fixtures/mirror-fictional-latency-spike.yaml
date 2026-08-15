@@ -1,0 +1,25 @@
+schema_version: 1
+id: mirror-fictional-latency-spike-v1
+name: Fictional regional latency spike
+classification: synthetic-training
+seed: 4115
+notice: Fixture timing is synthetic and is not a product performance claim.
+decision_points:
+  - id: latency-rise
+    condition: Fixture latency rises above its labeled synthetic baseline.
+    branches:
+      - id: observe
+        label: Observe another interval
+        outcome: Preserve topology and collect another deterministic fixture sample.
+      - id: compare
+        label: Compare alternate topology
+        outcome: Compare a reversible fixture topology without applying it.
+  - id: sustained-condition
+    condition: The synthetic latency condition persists for two fixture intervals.
+    branches:
+      - id: local
+        label: Model local review
+        outcome: Keep fictional regions in local review mode.
+      - id: bridge
+        label: Compare relay bridge
+        outcome: Compare a fictional relay bridge without external execution.

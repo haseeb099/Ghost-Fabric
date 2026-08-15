@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ghost-fabric.example/contracts/chameleon-topology-commit.schema.json",
+  "title": "CHAMELEON Topology Commit Evidence",
+  "description": "Non-executable evidence of a quorum-committed CHAMELEON topology revision. This contract intentionally excludes recovery commands, routing instructions, credentials, and node identity assertions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "cluster_id",
+    "raft_term",
+    "raft_index",
+    "correlation_id",
+    "payload_hash",
+    "audit_event_ref"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "cluster_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "raft_term": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "raft_index": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "payload_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "audit_event_ref": {
+      "type": "string",
+      "pattern": "^evt_[A-Za-z0-9_]+$"
+    }
+  }
+}

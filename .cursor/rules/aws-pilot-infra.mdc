@@ -1,0 +1,15 @@
+---
+description: AWS Terraform pilot infra conventions and apply guardrails
+globs: infra/aws/**
+alwaysApply: false
+---
+
+# AWS Pilot Infrastructure
+
+- Root: `infra/aws/` — three independent regions (`us-east-1`, `eu-west-1`, `ap-southeast-1`).
+- Modules: `networking`, `ecr`, `secrets`, `rds`, `ecs`, composed by `region`.
+- Never commit `terraform.tfvars`, `backend.hcl`, state files, or secret values.
+- `terraform apply` is manual only; CI may `fmt`/`validate`/`plan`, never apply from the quality gate.
+- Keep durable audit in RDS Postgres; do not invent a second event store.
+- Regions are pilot footprints — not consensus mesh failover (that is GF-32+).
+- Preserve simulation-only safety tags and human-approval product boundaries.

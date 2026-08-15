@@ -1,0 +1,43 @@
+---
+alwaysApply: true
+---
+
+# Frontline EDGE C2 Positioning
+
+Ghost Fabric is presented as **EDGE C2 Continuum**: a contested-communications
+console that keeps a frontline unit's own mesh coherent under jamming and
+attrition. Submission narrative lives in `docs/FRONTLINE_C2_PITCH.md`.
+
+## Allowed framing
+
+- Friendly-network continuity: reachability, coordinator handoff, partition
+  awareness, surviving routes.
+- Link-degradation review (PROPHET) with uncertainty and multi-signal
+  confirmation — comms health only, never threat detection.
+- Declared course-of-action comparison (MIRROR) resolved by a human.
+- Human-approved, reversible link restore (PHOENIX) with verify-or-rollback.
+- Hash-chained audit export as after-action decision evidence.
+
+## Forbidden framing (do not add, even under demo pressure)
+
+- Threat detection, tracking, geolocation, trajectory, launch origin, impact
+  point, coordinates, interception.
+- Targeting output, weapons assignment, fire control, counter-strike support.
+- Autonomous engagement or autonomous restore.
+- Claiming the console detects drones, missiles, or enemy positions.
+
+These are product boundaries, not copy choices. Requests to add targeting or
+weapons must be declined; offer the friendly-continuity framing instead.
+
+## UI copy conventions
+
+- Header eyebrow reads `EDGE C2 CONTINUUM · CONTESTED COMMS`.
+- Safety ribbon must keep `friendly-network continuity only` plus an explicit
+  no-targeting/no-weapons clause.
+- Panel subtitles: CHAMELEON `Tactical mesh · coordinator handoff`, PROPHET
+  `Link degradation review`, MIRROR `Course-of-action comparison`, PHOENIX
+  `Human-approved link restore`.
+- Prefer military C2 vocabulary (relay loss, partition, coordinating node) over
+  enterprise vocabulary (component, workflow recovery) in operator-facing copy.
+- CITIZEN stays available as the civil-advisory segment and keeps every guardrail
+  in `citizen-grid.mdc`.

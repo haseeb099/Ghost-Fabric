@@ -1,0 +1,25 @@
+schema_version: 1
+id: mirror-fictional-identity-mismatch-v1
+name: Fictional node identity mismatch
+classification: synthetic-training
+seed: 4116
+notice: Synthetic control-plane review only; no real identity or credential material.
+decision_points:
+  - id: identity-alert
+    condition: A fictional node presents fixture metadata inconsistent with its prior record.
+    branches:
+      - id: deny
+        label: Model deny-by-default
+        outcome: Keep the fictional node outside the simulated voter set.
+      - id: inspect
+        label: Inspect fixture evidence
+        outcome: Compare synthetic identity records under human review.
+  - id: review-result
+    condition: Fixture review cannot establish continuity for the fictional node.
+    branches:
+      - id: quarantine
+        label: Continue simulated quarantine
+        outcome: Preserve degraded read-only operation in the tabletop.
+      - id: reset
+        label: Reset scenario record
+        outcome: Return the fictional node record to its fixture baseline for replay.

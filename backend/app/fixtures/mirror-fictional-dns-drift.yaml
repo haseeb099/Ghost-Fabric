@@ -1,0 +1,25 @@
+schema_version: 1
+id: mirror-fictional-dns-drift-v1
+name: Fictional DNS resolution drift
+classification: synthetic-training
+seed: 4111
+notice: Doctrine-level tabletop exercise only. No individual profiling, targeting, influence operations, or external action.
+decision_points:
+  - id: resolver-drift
+    condition: Synthetic resolver answers diverge between two fictional regions.
+    branches:
+      - id: observe
+        label: Observe and compare
+        outcome: Preserve current state while comparing approved synthetic resolver evidence.
+      - id: isolate
+        label: Simulated isolation review
+        outcome: Model reversible isolation of the inconsistent fictional resolver.
+  - id: convergence-check
+    condition: Fixture evidence reports partial convergence after the review interval.
+    branches:
+      - id: wait
+        label: Extend observation
+        outcome: Continue deterministic observation without changing simulated service state.
+      - id: fallback
+        label: Compare fallback
+        outcome: Compare a documented synthetic fallback without issuing a command.

@@ -1,0 +1,70 @@
+{
+  "title": "Ghost Fabric RED Pilot",
+  "description": "Local RED dashboard for the Ghost Fabric API. Values are process telemetry for the simulation pilot and are not operational outcome claims. PagerDuty/Slack delivery is disabled pending approval.",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "15s",
+  "tags": ["ghost-fabric", "red", "pilot"],
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Request rate",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum(rate(ghost_fabric_http_requests_total[5m]))",
+          "legendFormat": "req/s"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Error rate",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum(rate(ghost_fabric_http_request_errors_total[5m]))",
+          "legendFormat": "errors/s"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Duration p99",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99, sum by (le) (rate(ghost_fabric_http_request_duration_seconds_bucket[5m])))",
+          "legendFormat": "p99"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Audit store healthy",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        {
+          "expr": "ghost_fabric_audit_store_healthy",
+          "legendFormat": "{{backend}}"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "CHAMELEON commits vs rejections",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        {
+          "expr": "chameleon_topology_commits_total",
+          "legendFormat": "commits"
+        },
+        {
+          "expr": "chameleon_topology_rejections_total",
+          "legendFormat": "rejections"
+        }
+      ]
+    }
+  ]
+}

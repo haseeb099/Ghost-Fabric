@@ -1,0 +1,31 @@
+---
+description: Event envelope, audit persistence, and auth conventions
+globs: backend/**/*.py
+alwaysApply: false
+---
+
+# Events, Audit, And Auth
+
+- Every mutation emits a versioned `EventEnvelope` with correlation ID, sequence, and chained `event_hash`.
+- Persist events through `AuditStore` (`memory` or `postgres`); do not invent a second event log.
+- Enforce unique `(correlation_id, sequence)` and command idempotency via `X-Command-ID`.
+- Record authenticated `subject`/`role` on durable audit writes; do not trust free-text actors when auth is enabled.
+- REST authentication accepts exactly one of: configured bearer tokens, HS256 JWTs (`sub`/`role`/`exp`), or configured `X-API-Key`; reject dual credentials; never store or log raw credentials.
+- JWT secrets must be ≥32 bytes when configured. `ENVIRONMENT=production` requires `AUTH_MODE=required`, at least one credential source, and `DEFAULT_ROLE=viewer`.
+- Enforce fine-grained actions via `backend/app/rbac.py` (`query`, `export_audit`, `mutate_scenario`, `mesh_failover`, `approve_recovery`, `rollback_recovery`); map routes with `require_action`.
+- Record authenticated allow/deny as canonical `auth.decision` audit events (subject/role/action/reason only); do not create a second auth log.
+- Enforce the configured per-second limit by hashed credential identity and return structured `{code, detail}` errors. The in-memory limiter is pilot-only; distributed deployments require a shared store.
+- Keep `/api/v1` as the versioned surface; preserve `/api/*` aliases until the console fully migrates.
+- Health checks stay unauthenticated; mutations require operator-class actions.
+- Security posture, secret rotation, and TLS/mTLS gates live in `docs/SECURITY_FOUNDATION_REVIEW.md`; do not claim pen-test, TLS 1.3, AES-256 verification, or CHAMELEON mTLS without those gates.
+- Treat unauthenticated WebSocket event streams and public `/metrics` as known pilot exposures documented in that review; do not silently “harden” them without an approved design (WS auth after HTTPS, or scrape-network isolation).
+- `GET /mesh/topology` is a `viewer`-authorized, fixture-backed read model only; it must not expose route execution or recovery authority.
+- `GET /phoenix/workflows` is a `viewer`-authorized simulation read model only; approval remains on the guarded operator-only endpoint.
+- PHOENIX uses explicit stepped transitions: `approve` (`alert→approval→execution`), `execute` (`execution→verify`), `verify` (`verify→restored` or forced rollback on failure), and `rollback`; persist every transition through the canonical audit and honor `X-Command-ID` idempotency.
+- MIRROR catalog/scenario reads are viewer-only; `/tabletop/select` records declared human branches via `MirrorEventLoop` and appends only `mirror.*` fixture outcomes to the canonical audit.
+- Scenario snapshots may include derived `demo_phase` pacing metadata; phases never authorize external action.
+- PHOENIX notification intent belongs in the persisted simulation outbox; do not add network delivery (PagerDuty, Slack, or otherwise) without separate security and operations approval.
+- PHOENIX `pre_approved` snapshot fields are catalog-only; `auto_execute` must remain false and every template must require operator confirm.
+- Emit JSON process/access logs with `request_id`, scenario `correlation_id`, service, action, and hashed identity only; never log raw credentials or treat stdout logs as a second audit store.
+- Echo `X-Request-ID` (accepted or generated) and active `X-Correlation-ID` on HTTP responses.
+- Expose Prometheus RED metrics on public `/metrics` with bounded labels only; never put credentials, bodies, or free-text actors into metric labels, and never treat metrics as the canonical audit trail.

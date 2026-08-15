@@ -1,0 +1,28 @@
+schema_version: 1
+id: mirror-fictional-route-leak-v1
+name: Fictional inter-region route leak
+classification: synthetic-training
+seed: 4112
+notice: Synthetic tabletop fixture only. No person-level analysis or external network changes.
+decision_points:
+  - id: route-divergence
+    condition: A fictional route advertisement diverges from the approved fixture baseline.
+    branches:
+      - id: hold
+        label: Hold current view
+        outcome: Retain the prior simulated topology while evidence is reviewed.
+      - id: quarantine
+        label: Compare quarantine
+        outcome: Model reversible quarantine of the fictional advertisement.
+      - id: alternate
+        label: Compare alternate path
+        outcome: Compare a fixture-defined alternate path without applying it.
+  - id: evidence-review
+    condition: Synthetic route evidence remains incomplete after one deterministic interval.
+    branches:
+      - id: collect
+        label: Collect more evidence
+        outcome: Continue the tabletop with an explicit evidence gap.
+      - id: local
+        label: Local review mode
+        outcome: Model local review mode until fixture evidence converges.

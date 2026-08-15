@@ -1,0 +1,44 @@
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Backend
+backend/.venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/.pytest_cache/
+backend/.coverage
+backend/htmlcov/
+*.pyc
+
+# Test reports
+frontend/test-results/
+frontend/playwright-report/
+
+# Local configuration
+.env
+.env.*
+!.env.example
+
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/crash.log
+**/crash.*.log
+**/override.tf
+**/override.tf.json
+**/*_override.tf
+**/*_override.tf.json
+infra/aws/terraform.tfvars
+infra/aws/backend.hcl
+# Keep .terraform.lock.hcl committed for reproducible providers.
+
+# Developer load-harness outputs (GF-52)
+backend/app/fixtures/load-harness/
+backend/app/fixtures/load-harness-latest.*
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.vscode/

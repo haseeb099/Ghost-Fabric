@@ -1,0 +1,14 @@
+---
+description: GTM docs live under docs/gtm; claims stay labeled
+globs: docs/gtm/**
+alwaysApply: false
+---
+
+# GTM Documentation
+
+- Keep positioning, pitch, hiring, onboarding, retrospective, and vertical 1-pagers under `docs/gtm/`.
+- Market cost/TAM figures are framing for discovery only — not Ghost Fabric measured outcomes.
+- Never imply FedRAMP/SOC2/NERC certification until earned; readiness stubs live under `docs/compliance/`.
+- Pilot language stays simulation-first with human approval and synthetic or approved data.
+- Hiring tasks remain blocked until humans post roles, score interviews, sign offers, and confirm starts; repository JDs and scorecards are preparation evidence only.
+- A customer pilot requires signed commercial/data agreements, named customer owners, approved deployment/data scope, and a recorded go/no-go; never commit customer evidence or credentials.

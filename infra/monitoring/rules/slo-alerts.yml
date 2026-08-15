@@ -1,0 +1,76 @@
+groups:
+  - name: ghost-fabric-slo-pilot
+    rules:
+      # Proposed pilot objectives. Do not treat firings as production SLO proof.
+      - alert: GhostFabricAPIHighErrorRate
+        expr: |
+          sum(rate(ghost_fabric_http_request_errors_total[5m]))
+          /
+          clamp_min(sum(rate(ghost_fabric_http_requests_total[5m])), 1e-9)
+          > 0.01
+        for: 5m
+        labels:
+          severity: page
+          service: ghost-fabric-api
+        annotations:
+          summary: "API error rate exceeds proposed 99.99% availability budget burn"
+          description: "5m error ratio is above 1%. Investigate /health and audit store status."
+          runbook_url: "docs/runbooks/PROMETHEUS_SLO_ALERTS.md#ghostfabricapihigherrorrate"
+
+      - alert: GhostFabricAPIRequestLatencyP99
+        expr: |
+          histogram_quantile(
+            0.99,
+            sum by (le) (rate(ghost_fabric_http_request_duration_seconds_bucket[5m]))
+          ) > 0.5
+        for: 10m
+        labels:
+          severity: ticket
+          service: ghost-fabric-api
+        annotations:
+          summary: "API request p99 latency above proposed 500ms pilot objective"
+          description: "p99 request duration exceeded 500ms for 10m. Review hot routes and DB health."
+          runbook_url: "docs/runbooks/PROMETHEUS_SLO_ALERTS.md#ghostfabricapirequestlatencyp99"
+
+      - alert: GhostFabricAuditStoreUnhealthy
+        expr: ghost_fabric_audit_store_healthy == 0
+        for: 2m
+        labels:
+          severity: page
+          service: ghost-fabric-api
+        annotations:
+          summary: "Canonical audit store reports unhealthy"
+          description: "Audit persistence is degraded. Prefer fail-closed behavior over silent local fallbacks."
+          runbook_url: "docs/runbooks/PROMETHEUS_SLO_ALERTS.md#ghostfabricauditstoreunhealthy"
+
+      - alert: GhostFabricChameleonFailoverLatencyPilot
+        expr: |
+          histogram_quantile(
+            0.99,
+            sum by (le) (rate(chameleon_control_operation_duration_seconds_bucket[5m]))
+          ) > 0.5
+        for: 10m
+        labels:
+          severity: ticket
+          service: chameleon-control-plane
+        annotations:
+          summary: "CHAMELEON control-plane op p99 above proposed <500ms pilot objective"
+          description: "In-process control-plane operation latency exceeded the proposed failover objective. This is not an operational recovery claim."
+          runbook_url: "docs/runbooks/PROMETHEUS_SLO_ALERTS.md#ghostfabricchameleonfailoverlatencypilot"
+
+      - alert: GhostFabricInferenceLatencyPilot
+        expr: |
+          histogram_quantile(
+            0.99,
+            sum by (le) (
+              rate(ghost_fabric_http_request_duration_seconds_bucket{route=~".*/prophet/.*"}[5m])
+            )
+          ) > 0.1
+        for: 10m
+        labels:
+          severity: ticket
+          service: ghost-fabric-api
+        annotations:
+          summary: "PROPHET route p99 above proposed <100ms inference objective"
+          description: "Fixture-backed prophet routes exceeded the proposed inference latency objective. Do not interpret as model accuracy evidence."
+          runbook_url: "docs/runbooks/PROMETHEUS_SLO_ALERTS.md#ghostfabricinferencelatencypilot"

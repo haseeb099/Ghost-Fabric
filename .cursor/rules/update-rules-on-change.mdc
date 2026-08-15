@@ -1,0 +1,34 @@
+---
+description: Every create, edit, fix, or improvement must be reflected in Cursor rules
+alwaysApply: true
+---
+
+# Keep Cursor Rules Current
+
+After **any** create, edit, fix, refactor, feature, test, config, docs, or improvement in this repo:
+
+1. **Update Cursor rules** under `.cursor/rules/` in the same turn (or immediately after).
+2. Prefer **editing an existing focused rule** over inventing a new one.
+3. Add a **new `.mdc` rule** only when the change introduces a durable convention, architecture boundary, safety constraint, or workflow that future agents must follow.
+4. Rules must stay **actionable and concise** (prefer under ~50 lines per concern).
+5. Do not leave new project knowledge only in chat — capture it in rules if it should persist.
+
+## What to capture
+
+- New modules, APIs, fixtures, schemas, UI patterns
+- Naming, folder layout, and “where things live”
+- Safety / fictional-training / human-approval constraints
+- Test expectations and golden-path behavior
+- Decisions that prevent repeating mistakes
+
+## What not to dump into rules
+
+- One-off debugging notes with no lasting value
+- Secrets, credentials, tokens, or private env values
+- Huge paste dumps; summarize the durable convention instead
+
+## Checklist before finishing a task
+
+- [ ] Code/docs/tests for the requested change are done
+- [ ] Relevant `.cursor/rules/*.mdc` updated (or a new rule added)
+- [ ] Rule frontmatter is correct (`alwaysApply` or `globs`)

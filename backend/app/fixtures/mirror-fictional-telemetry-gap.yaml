@@ -1,0 +1,25 @@
+schema_version: 1
+id: mirror-fictional-telemetry-gap-v1
+name: Fictional telemetry evidence gap
+classification: synthetic-training
+seed: 4114
+notice: Synthetic evidence-quality tabletop fixture with no operational authority.
+decision_points:
+  - id: missing-window
+    condition: Approved synthetic telemetry is absent for one bounded fixture interval.
+    branches:
+      - id: wait
+        label: Wait for complete evidence
+        outcome: Preserve the current state and display the evidence limitation.
+      - id: cached
+        label: Compare cached evidence
+        outcome: Compare labeled stale fixture values without presenting them as current.
+  - id: restored-feed
+    condition: The synthetic feed resumes with a quality flag.
+    branches:
+      - id: verify
+        label: Verify continuity
+        outcome: Compare pre-gap and post-gap fixture values before further review.
+      - id: discard
+        label: Discard uncertain interval
+        outcome: Exclude the bounded interval from the tabletop comparison.

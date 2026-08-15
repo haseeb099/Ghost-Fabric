@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "fixture_version": "1.0.0",
+  "id": "prophet-telemetry-v1",
+  "scenario_id": "broken-signal-v1",
+  "seed": 4107,
+  "source": "deterministic-synthetic-generator",
+  "description": "Labeled synthetic civil-resilience telemetry informed by abstracted public reporting on prolonged communications and utility disruption during the Russia-Ukraine war. Values, timing, and locations are generated; there are no operational feeds, real assets, or tactical observations.",
+  "signals": [
+    {
+      "id": "spectrum",
+      "label": "Civil radio congestion",
+      "unit": "%",
+      "baseline_range": [34, 42]
+    },
+    {
+      "id": "logistics",
+      "label": "Utility service queue",
+      "unit": "idx",
+      "baseline_range": [41, 47]
+    },
+    {
+      "id": "network",
+      "label": "Emergency mesh traffic",
+      "unit": "idx",
+      "baseline_range": [28, 34]
+    }
+  ],
+  "label_policy": {
+    "pattern_onset_minute": -47,
+    "event_minute": 0,
+    "false_positive_definition": "A single-signal excursion without multi-signal confirmation or a subsequent synthetic event.",
+    "missing_data_policy": "Preserve null values and mark sample quality as partial; never impute silently."
+  },
+  "samples": [
+    {"minute": -90, "spectrum": 37, "logistics": 43, "network": 30, "quality": "complete", "label": "normal", "event_observed": false},
+    {"minute": -80, "spectrum": 39, "logistics": 42, "network": 32, "quality": "complete", "label": "normal", "event_observed": false},
+    {"minute": -70, "spectrum": 36, "logistics": 45, "network": 29, "quality": "complete", "label": "normal", "event_observed": false},
+    {"minute": -65, "spectrum": 74, "logistics": 44, "network": 31, "quality": "complete", "label": "false_positive", "event_observed": false},
+    {"minute": -60, "spectrum": 40, "logistics": 43, "network": 33, "quality": "complete", "label": "normal", "event_observed": false},
+    {"minute": -55, "spectrum": 38, "logistics": 46, "network": 30, "quality": "complete", "label": "normal", "event_observed": false},
+    {"minute": -50, "spectrum": 39, "logistics": null, "network": 32, "quality": "partial", "label": "missing_data", "event_observed": false},
+    {"minute": -47, "spectrum": 48, "logistics": 53, "network": 46, "quality": "complete", "label": "pattern_onset", "event_observed": false},
+    {"minute": -40, "spectrum": 55, "logistics": 59, "network": 52, "quality": "complete", "label": "pre_event", "event_observed": false},
+    {"minute": -35, "spectrum": 60, "logistics": 64, "network": 58, "quality": "complete", "label": "pre_event", "event_observed": false},
+    {"minute": -30, "spectrum": 66, "logistics": 69, "network": 65, "quality": "complete", "label": "pre_event", "event_observed": false},
+    {"minute": -25, "spectrum": 70, "logistics": 74, "network": 71, "quality": "complete", "label": "pre_event", "event_observed": false},
+    {"minute": -20, "spectrum": 76, "logistics": 80, "network": 77, "quality": "complete", "label": "pre_event", "event_observed": false},
+    {"minute": -15, "spectrum": 81, "logistics": 85, "network": 83, "quality": "complete", "label": "pre_event", "event_observed": false},
+    {"minute": -10, "spectrum": 86, "logistics": 89, "network": 87, "quality": "complete", "label": "pre_event", "event_observed": false},
+    {"minute": -5, "spectrum": 90, "logistics": 92, "network": 91, "quality": "complete", "label": "pre_event", "event_observed": false},
+    {"minute": 0, "spectrum": 93, "logistics": 95, "network": 94, "quality": "complete", "label": "synthetic_event", "event_observed": true}
+  ]
+}

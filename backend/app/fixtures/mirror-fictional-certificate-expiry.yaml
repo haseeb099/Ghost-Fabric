@@ -1,0 +1,25 @@
+schema_version: 1
+id: mirror-fictional-certificate-expiry-v1
+name: Fictional relay certificate expiry
+classification: synthetic-training
+seed: 4113
+notice: Synthetic tabletop fixture only. No credentials or external actions are included.
+decision_points:
+  - id: certificate-warning
+    condition: A fictional relay certificate enters its fixture-defined warning window.
+    branches:
+      - id: review
+        label: Review rotation evidence
+        outcome: Compare approved rotation evidence without handling a real credential.
+      - id: defer
+        label: Defer in simulation
+        outcome: Model continued operation during a bounded synthetic review interval.
+  - id: expiry-simulation
+    condition: The deterministic clock reaches the fictional expiry boundary.
+    branches:
+      - id: isolate
+        label: Simulated relay isolation
+        outcome: Model reversible isolation while preserving human review.
+      - id: fallback
+        label: Compare cached fallback
+        outcome: Compare a fixture-defined cached path without executing recovery.

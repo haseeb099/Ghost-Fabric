@@ -1,0 +1,28 @@
+# Example variable values for the Ghost Fabric AWS pilot foundation.
+# Copy to terraform.tfvars (gitignored) before planning.
+
+project_name = "ghost-fabric"
+environment  = "pilot"
+owner        = "ghost-fabric-ops"
+
+vpc_cidr_blocks = {
+  "us-east-1"      = "10.10.0.0/16"
+  "eu-west-1"      = "10.20.0.0/16"
+  "ap-southeast-1" = "10.30.0.0/16"
+}
+
+api_image_tag = "latest"
+web_image_tag = "latest"
+
+api_cpu    = 512
+api_memory = 1024
+web_cpu    = 256
+web_memory = 512
+
+db_instance_class        = "db.t4g.medium"
+db_allocated_storage     = 50
+db_backup_retention_days = 7
+
+auth_mode           = "required"
+desired_count       = 1
+enable_nat_gateway  = true

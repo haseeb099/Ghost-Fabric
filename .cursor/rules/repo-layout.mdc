@@ -1,0 +1,27 @@
+---
+description: Repository layout and module boundaries for Ghost Fabric
+alwaysApply: true
+---
+
+# Repository Layout
+
+- `backend/app/` — FastAPI modular monolith (`main.py`, `settings.py`, `auth.py`, `rbac.py`, `ai_adapter.py`, `citizen_grid.py`, `structured_logging.py`, `metrics.py`, `phoenix_preapproved.py`, `audit/`)
+- `docs/SECURITY_FOUNDATION_REVIEW.md` — GF-63 control matrix, secret rotation, TLS/mTLS gates
+- `docs/compliance/FEDRAMP_NERC_READINESS.md` — illustrative mapping only; not certification
+- `docs/gtm/` — positioning, hiring, onboarding, retrospective templates
+- `docs/architecture/` — CHAMELEON/PROPHET/PHOENIX/MIRROR ADRs (transport and multi-region sync remain gated)
+- `backend/app/fixtures/` — versioned golden scenario, telemetry, and pre-approved policy JSON
+- `backend/tests/` — pytest API, auth, and persistence tests
+- `backend/scripts/` — OpenAPI export/drift, perf, rehearsal helpers
+- `frontend/src/` — React console (`App.tsx`, panel components incl. `CitizenGridPanel.tsx`, `api.ts`, `types.ts`, `TacticalMap.tsx`, `fixtureSnapshot.ts`)
+- `services/chameleon-control-plane/` — isolated Go in-process Raft + mesh-core prototype (health, routes, degradation, structured logging, chaos fixtures); no external transport yet
+- `contracts/openapi.json` — committed REST contract
+- `contracts/telemetry/synthetic_metrics.proto` — future gRPC schema only (no live server)
+- `infra/aws/` — three-region AWS pilot Terraform (manual apply; independent footprints)
+- `infra/monitoring/` — local Prometheus scrape config, proposed SLO alert rules, and RED dashboard (no outbound Alertmanager)
+- `docs/` — demo, operator, deployment, GTM, and AWS pilot runbooks
+- `docs/API_REFERENCE.md`, `docs/ARCHITECTURE.md`, and `docs/OPERATIONS_MANUAL.md` — canonical API, component-boundary, and operational guidance
+- `docs/FRONTLINE_C2_PITCH.md` — EDGE C2 Continuum submission narrative, demo script, and claim boundaries
+- `docs/LOAD_TESTING.md` — developer-only synthetic load harness (not production capacity evidence)
+- Generated coverage and browser-test reports stay untracked via `.gitignore`.
+- Prefer editing focused modules over growing unstructured monoliths; keep demo narrative intact.

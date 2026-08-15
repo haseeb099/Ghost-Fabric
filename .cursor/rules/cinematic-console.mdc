@@ -1,0 +1,20 @@
+---
+description: Guided cinematic four-layer console conventions
+globs: frontend/src/**/*.{ts,tsx,css}
+alwaysApply: false
+---
+
+# Cinematic Console
+
+- Keep the console simulation-first: fictional fixtures, human approval, no targeting or autonomous restore claims.
+- Prefer focused panels under `frontend/src/components/` plus `fixtureSnapshot.ts` over growing `App.tsx` further.
+- Call versioned `/api/v1` routes through `api.ts`; do not hard-code legacy `/api/*` in new UI code.
+- Drive guided pacing from `scenario.demo_phase`; never invent a second client-side phase machine that can desync from the backend.
+- MIRROR cards must show catalog branch labels/outcomes without probability-as-prediction framing.
+- PHOENIX must render the workflow stepper from persisted transitions and require explicit approval before simulated execute/verify.
+- Preserve reduced-motion support, offline fixture fallback, and clear fictional-exercise labeling on the map.
+- Keep the first-run guide in `components/FirstRunGuide.tsx`; it must explain purpose, the four layers, the golden path, and safety boundaries, and remain reopenable from the session bar.
+- Persist onboarding dismissal only via `ONBOARDING_KEY` helpers in `api.ts` (`ghost-fabric.onboarding-v1`); this is UI preference, never an audited scenario mutation.
+- Playwright console specs must seed or clear that key explicitly so golden-path tests are not blocked by the first-run dialog.
+- Local optional auth (empty bearer) is the default e2e mutation path when demo tokens are not configured; do not force `operator-token` unless the API advertises those credentials.
+- The active Eastern Europe civil-continuity exercise may cite abstracted public reporting as inspiration, but every node, coordinate, value, timing, and outcome must remain generated and generalized.

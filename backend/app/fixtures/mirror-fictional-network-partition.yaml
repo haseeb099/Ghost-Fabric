@@ -1,0 +1,28 @@
+schema_version: 1
+id: mirror-fictional-network-partition-v1
+name: Eastern Europe civil communications continuity
+classification: synthetic-training
+seed: 4107
+notice: Synthetic tabletop exercise informed by abstracted public reporting from the Russia-Ukraine war. All details are generated and generalized; no individual profiling, targeting, influence operations, or external action.
+decision_points:
+  - id: relay-loss
+    condition: A fictional civil communications relay becomes unavailable during a generalized regional service disruption.
+    branches:
+      - id: hold
+        label: Conservative hold
+        outcome: Maintain local review while diagnostics confirm simulated relay status.
+      - id: bridge
+        label: Civil bridge review
+        outcome: Evaluate a reversible simulated civil relay bridge with operator review.
+      - id: partition
+        label: Local partition
+        outcome: Keep fictional regions in local review mode pending further evidence.
+  - id: evidence-gap
+    condition: Synthetic emergency-service telemetry has a bounded missing-data interval during the continuity exercise.
+    branches:
+      - id: wait
+        label: Wait for evidence
+        outcome: Preserve the current simulation state and request additional labeled evidence.
+      - id: tabletop
+        label: Tabletop comparison
+        outcome: Compare documented assumptions without issuing an operational command.

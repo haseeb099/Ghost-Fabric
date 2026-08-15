@@ -1,0 +1,26 @@
+---
+description: Safety, simulation claims, and human-approval boundaries
+alwaysApply: true
+---
+
+# Safety And Claims
+
+- Use synthetic or approved training data only.
+- Never implement targeting, weapons assignment, individual profiling, or operational deception.
+- Require explicit human approval for simulated recovery and other consequential actions.
+- PHOENIX `pre_approved` templates are a read-only catalog (`auto_execute` must stay false); matching a template never skips operator approve → execute → verify.
+- PHOENIX workflows must follow `alert → approval → execution → verify → restored|rollback`; only an operator may approve and execution remains simulation-only and reversible.
+- Failed verification must enter rollback, never a restored state; every transition needs an actor, reason, and correlation ID in the canonical audit trail.
+- MIRROR scenarios use fixture-only YAML with declared tabletop branches and deterministic replay. Reject executable fields and scenario content involving targeting, individual profiling, weapon content, or influence operations.
+- Load the approved MIRROR catalog via `load_mirror_catalog`; keep scenario IDs unique and add catalog-wide safety/determinism tests with every new fixture.
+- MIRROR's event loop must wait for a declared human branch choice, record only fixture outcomes, and never mutate systems, choose a recovery, or execute an external action.
+- Expose catalog/scenario projections on read routes and record operator selections through `/tabletop/select` into canonical `mirror.*` audit events only.
+- MIRROR event timing uses deterministic positive virtual-time steps, never wall-clock randomness; comparison UI must show declared branches side by side with an explicit human-selected state.
+- MIRROR traces enter the canonical audit stream only as `mirror.*` events marked `tabletop-fixture-only`; never represent them as commands or operational forecasts.
+- CITIZEN grid data is anonymous district aggregates only; never derive trajectory, source location, coordinates, interception, or targeting from it (see `citizen-grid.mdc`).
+- A civilian advisory requires 3 corroborating districts plus 55% confidence and explicit operator approval; it is recorded as simulation-only and transmits nothing.
+- Keep AI non-authoritative: schema-validated explanation only, with fixture fallback.
+- PROPHET score/explanation read models expose labeled review-only evidence. They must never authorize action or claim to determine ground truth.
+- Guided `demo_phase` projections are fictional pacing only and must not authorize recovery or external action.
+- Do not invent accuracy, warning-time, or operational outcome claims; label fixture evidence.
+- Developer load-harness outputs are `developer-fixture-only` baselines. Never publish them as production capacity, failover latency, inference P99, or memory guarantees.

@@ -1,0 +1,55 @@
+name: AWS Terraform Plan (manual)
+
+# Manual-only workflow. Does NOT apply infrastructure.
+# Requires repository secrets / OIDC to be configured before use.
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type plan-only to confirm no apply will run"
+        required: true
+        default: "plan-only"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  plan:
+    name: Terraform plan (no apply)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/aws
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+      - name: Guardrail — reject accidental apply intent
+        run: |
+          if [ "${{ github.event.inputs.confirm }}" != "plan-only" ]; then
+            echo "Refusing to continue. confirm must equal plan-only."
+            exit 1
+          fi
+          echo "Confirmed plan-only. terraform apply is never run in this workflow."
+      - name: Init (local backend for CI plan dry-run)
+        run: terraform init -backend=false
+      - name: Validate
+        run: |
+          terraform fmt -check -recursive
+          terraform validate
+      - name: Plan without credentials (optional)
+        # Real AWS plans need credentials. Without them we stop after validate.
+        # When AWS_ROLE_ARN / keys are configured, uncomment the plan step below.
+        run: |
+          echo "Skipping terraform plan — no AWS credentials wired in this repository yet."
+          echo "Operators run: terraform plan -out=pilot.tfplan locally or after OIDC is configured."
+      # - name: Configure AWS credentials (OIDC)
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+      #     aws-region: us-east-1
+      # - name: Terraform plan
+      #   run: terraform plan -input=false -no-color

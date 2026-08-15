@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "purpose": "gf-22-timed-demo-rehearsals",
+  "method": "agent-paced-api-dry-run following DEMO_RUNBOOK beat windows",
+  "fixture_sha256": "20146fb1aee9c303208df161be93d76209d2991247072fe0b29d2b4c3bbd8560",
+  "takes": [
+    {
+      "take": 1,
+      "started_at": "2026-08-15T14:21:06",
+      "elapsed_s": 120.0,
+      "fixture_sha256": "20146fb1aee9c303208df161be93d76209d2991247072fe0b29d2b4c3bbd8560",
+      "pass_under_120": true,
+      "beats": [
+        {
+          "name": "baseline_safety",
+          "scheduled_start_s": 0,
+          "elapsed_s": 15.0,
+          "ok": true,
+          "detail": "classification=FICTIONAL TRAINING SIMULATION"
+        },
+        {
+          "name": "chameleon_graph",
+          "scheduled_start_s": 15,
+          "elapsed_s": 32.0,
+          "ok": true,
+          "detail": "nodes=12 metrics_keys=['connected_components', 'components', 'active_links', 'unavailable_links', 'coordinator_reachable_nodes', 'alternate_routes']"
+        },
+        {
+          "name": "prophet_confidence",
+          "scheduled_start_s": 32,
+          "elapsed_s": 48.0,
+          "ok": true,
+          "detail": "confidence=81 thresholds={'watch': 55, 'warning': 80}"
+        },
+        {
+          "name": "false_positive_guardrail",
+          "scheduled_start_s": 48,
+          "elapsed_s": 60.03,
+          "ok": true,
+          "detail": "fp=True partial=True guardrail=True"
+        },
+        {
+          "name": "node_loss_handoff",
+          "scheduled_start_s": 60,
+          "elapsed_s": 78.0,
+          "ok": true,
+          "detail": "coordinator=atlas"
+        },
+        {
+          "name": "phoenix_ranking",
+          "scheduled_start_s": 78,
+          "elapsed_s": 96.0,
+          "ok": true,
+          "detail": "options=4 recommended=route-atlas"
+        },
+        {
+          "name": "human_approval",
+          "scheduled_start_s": 96,
+          "elapsed_s": 110.01,
+          "ok": true,
+          "detail": "approved=True status=restored"
+        },
+        {
+          "name": "audit_export",
+          "scheduled_start_s": 110,
+          "elapsed_s": 120.0,
+          "ok": true,
+          "detail": "export_hash=599b467d93776f8a events=0"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "take": 2,
+      "started_at": "2026-08-15T14:23:06",
+      "elapsed_s": 120.0,
+      "fixture_sha256": "20146fb1aee9c303208df161be93d76209d2991247072fe0b29d2b4c3bbd8560",
+      "pass_under_120": true,
+      "beats": [
+        {
+          "name": "baseline_safety",
+          "scheduled_start_s": 0,
+          "elapsed_s": 15.0,
+          "ok": true,
+          "detail": "classification=FICTIONAL TRAINING SIMULATION"
+        },
+        {
+          "name": "chameleon_graph",
+          "scheduled_start_s": 15,
+          "elapsed_s": 32.0,
+          "ok": true,
+          "detail": "nodes=12 metrics_keys=['connected_components', 'components', 'active_links', 'unavailable_links', 'coordinator_reachable_nodes', 'alternate_routes']"
+        },
+        {
+          "name": "prophet_confidence",
+          "scheduled_start_s": 32,
+          "elapsed_s": 48.03,
+          "ok": true,
+          "detail": "confidence=81 thresholds={'watch': 55, 'warning': 80}"
+        },
+        {
+          "name": "false_positive_guardrail",
+          "scheduled_start_s": 48,
+          "elapsed_s": 60.0,
+          "ok": true,
+          "detail": "fp=True partial=True guardrail=True"
+        },
+        {
+          "name": "node_loss_handoff",
+          "scheduled_start_s": 60,
+          "elapsed_s": 78.0,
+          "ok": true,
+          "detail": "coordinator=atlas"
+        },
+        {
+          "name": "phoenix_ranking",
+          "scheduled_start_s": 78,
+          "elapsed_s": 96.0,
+          "ok": true,
+          "detail": "options=4 recommended=route-atlas"
+        },
+        {
+          "name": "human_approval",
+          "scheduled_start_s": 96,
+          "elapsed_s": 110.0,
+          "ok": true,
+          "detail": "approved=True status=restored"
+        },
+        {
+          "name": "audit_export",
+          "scheduled_start_s": 110,
+          "elapsed_s": 120.0,
+          "ok": true,
+          "detail": "export_hash=43efe08cf8d83668 events=0"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "take": 3,
+      "started_at": "2026-08-15T14:25:06",
+      "elapsed_s": 120.0,
+      "fixture_sha256": "20146fb1aee9c303208df161be93d76209d2991247072fe0b29d2b4c3bbd8560",
+      "pass_under_120": true,
+      "beats": [
+        {
+          "name": "baseline_safety",
+          "scheduled_start_s": 0,
+          "elapsed_s": 15.0,
+          "ok": true,
+          "detail": "classification=FICTIONAL TRAINING SIMULATION"
+        },
+        {
+          "name": "chameleon_graph",
+          "scheduled_start_s": 15,
+          "elapsed_s": 32.0,
+          "ok": true,
+          "detail": "nodes=12 metrics_keys=['connected_components', 'components', 'active_links', 'unavailable_links', 'coordinator_reachable_nodes', 'alternate_routes']"
+        },
+        {
+          "name": "prophet_confidence",
+          "scheduled_start_s": 32,
+          "elapsed_s": 48.01,
+          "ok": true,
+          "detail": "confidence=81 thresholds={'watch': 55, 'warning': 80}"
+        },
+        {
+          "name": "false_positive_guardrail",
+          "scheduled_start_s": 48,
+          "elapsed_s": 60.0,
+          "ok": true,
+          "detail": "fp=True partial=True guardrail=True"
+        },
+        {
+          "name": "node_loss_handoff",
+          "scheduled_start_s": 60,
+          "elapsed_s": 78.01,
+          "ok": true,
+          "detail": "coordinator=atlas"
+        },
+        {
+          "name": "phoenix_ranking",
+          "scheduled_start_s": 78,
+          "elapsed_s": 96.0,
+          "ok": true,
+          "detail": "options=4 recommended=route-atlas"
+        },
+        {
+          "name": "human_approval",
+          "scheduled_start_s": 96,
+          "elapsed_s": 110.0,
+          "ok": true,
+          "detail": "approved=True status=restored"
+        },
+        {
+          "name": "audit_export",
+          "scheduled_start_s": 110,
+          "elapsed_s": 120.0,
+          "ok": true,
+          "detail": "export_hash=7e58e929b74877da events=0"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "all_passed": true
+}

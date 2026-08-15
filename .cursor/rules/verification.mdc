@@ -1,0 +1,22 @@
+---
+description: Verification gates for Ghost Fabric changes
+alwaysApply: true
+---
+
+# Verification
+
+Before finishing a production-foundation change:
+
+1. `cd backend && python -m pytest -q`
+2. `python backend/scripts/check_openapi.py` (re-export with `export_openapi.py` if drifted)
+3. `cd frontend && npm run build`
+4. Prefer Playwright smoke / golden-path coverage for console mutations (demo-phase banner, MIRROR catalog branch, PHOENIX approve→execute→verify, CITIZEN corroboration→jam→advisory)
+   - When ports 8000/5173 are already taken, start a clean pair and point the tooling at it:
+     `uvicorn app.main:app --port 8100`, `GF_API_TARGET=http://127.0.0.1:8100 npx vite --port 5180 --strictPort`,
+     then `GF_CONSOLE_URL=http://localhost:5180 npx playwright test`. Never verify against a stale server.
+5. For CHAMELEON control-plane edits: `cd services/chameleon-control-plane && gofmt -w . && go test ./...`
+6. For AWS infra edits: `terraform fmt -check -recursive` and `terraform validate` under `infra/aws` (never apply from CI)
+7. For monitoring edits under `infra/monitoring/`: `promtool check config` and `promtool check rules` (Compose Prometheus only; no Alertmanager/PagerDuty without approval)
+8. For load-harness edits: unit-test config/aggregation only in default CI; do not gate merges on absolute latency or throughput thresholds from developer machines
+9. Coverage reports from `pytest-cov` are informational baselines only; do not fail merges on absolute coverage percentages unless the team explicitly adopts a measured gate
+10. Update relevant `.cursor/rules/*.mdc` when durable conventions change

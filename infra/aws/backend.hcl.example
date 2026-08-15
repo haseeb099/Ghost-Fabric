@@ -1,0 +1,12 @@
+# Remote state backend configuration for Ghost Fabric AWS pilot.
+# Bootstrap the bucket/table once (see docs/AWS_PILOT_DEPLOYMENT.md), then:
+#   terraform init -backend-config=backend.hcl
+#
+# DO NOT commit a filled backend.hcl with account-specific names if they encode secrets.
+# Bucket names are not secrets, but keep environment-specific files local if preferred.
+
+bucket         = "ghost-fabric-terraform-state-CHANGE_ME"
+key            = "pilot/aws/terraform.tfstate"
+region         = "us-east-1"
+dynamodb_table = "ghost-fabric-terraform-locks"
+encrypt        = true

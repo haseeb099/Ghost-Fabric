@@ -1,0 +1,24 @@
+---
+description: CHAMELEON consensus architecture and safety boundaries
+globs: docs/architecture/**,backend/chameleon/**,services/chameleon/**
+alwaysApply: false
+---
+
+# CHAMELEON Consensus
+
+- The proposed protocol is Raft for crash/omission faults, not Byzantine fault tolerance.
+- Raft coordinates replicated topology/control state only; it cannot authorize PHOENIX recovery or operational actions.
+- Correlate committed control entries with the canonical `EventEnvelope` and durable `AuditStore`; do not create a parallel audit log.
+- Use `TopologyAuditAdapter` only through a canonical `AuditEventSink`: emit requested → committed/rejected events with the same correlation ID and hash chain.
+- The in-memory Go audit sink is test-only. A future process boundary must map it to the FastAPI `AuditStore`, not persist a competing log.
+- Backend ingress is `backend/app/chameleon_bridge.py`: accept only operator-authenticated, active-correlation `ChameleonTopologyCommit` evidence and persist it through `ScenarioState._append_event`; do not expose it as an unreviewed HTTP route.
+- The future process boundary is limited to `contracts/chameleon-topology-commit.schema.json`; it forbids extra/recovery-shaped data. Follow `docs/architecture/CHAMELEON_TRANSPORT_REVIEW.md` and obtain the listed architecture/security approvals before implementing it.
+- Use an odd voter set; non-voting observers may receive committed topology state but never contribute to quorum or leader election.
+- In-process benchmark results are developer baselines only; never turn them into operational latency or throughput claims.
+- Chaos fixtures must be deterministic and in-process only (crash/partition/validation rejection). Prefer `Isolate`/`HealPartitions` for live partitions (nodes stay alive) and `Crash`/`Recover` for omission faults. Do not claim Byzantine fault tolerance, wall-clock recovery SLAs, packet-level injection, or Gremlin/external agents without an approved threat-model and transport review.
+- Mesh health grades, route plans, and degradation levels are control-plane state only; they never authorize PHOENIX recovery.
+- Use `NewStructuredLogger` for process JSON logs with `correlation_id` and hashed identity fields; stdout logs never replace `AuditEventSink`.
+- Use `MetricsCollector` for Prometheus-compatible process telemetry only; proposed failover latency objectives are not production claims and never authorize recovery.
+- Feature shedding is criticality-ordered (`low` → `medium` → `high`); `critical` features remain until quorum is lost (`essential_only`).
+- The three AWS pilot regions are independent footprints until separately approved cross-region replication work.
+- Require Principal Architect and security review before implementing external node transport, membership, or consensus claims.

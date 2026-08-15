@@ -1,0 +1,25 @@
+schema_version: 1
+id: mirror-fictional-audit-outage-v1
+name: Fictional audit-store outage
+classification: synthetic-training
+seed: 4117
+notice: Synthetic tabletop fixture; canonical evidence must fail closed without a shadow log.
+decision_points:
+  - id: persistence-loss
+    condition: The fictional canonical audit store becomes unavailable.
+    branches:
+      - id: readonly
+        label: Enter read-only review
+        outcome: Model rejection of new simulated mutations until audit persistence returns.
+      - id: pause
+        label: Pause tabletop mutations
+        outcome: Preserve the last durable fixture checkpoint without a local shadow log.
+  - id: persistence-return
+    condition: The fictional audit store returns after a bounded interval.
+    branches:
+      - id: verify
+        label: Verify durable chain
+        outcome: Compare the restored chain head with the last fixture checkpoint.
+      - id: reset
+        label: Reset from checkpoint
+        outcome: Restart the tabletop from the last declared durable fixture state.

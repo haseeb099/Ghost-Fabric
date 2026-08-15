@@ -1,0 +1,10 @@
+{
+  "samples_event_to_ui": 40,
+  "event_to_ui_p50_ms": 4.933,
+  "event_to_ui_p95_ms": 5.336,
+  "event_to_ui_max_ms": 7.716,
+  "samples_reset": 20,
+  "reset_p50_ms": 4.001,
+  "reset_p95_ms": 5.36,
+  "reset_max_ms": 5.494
+}

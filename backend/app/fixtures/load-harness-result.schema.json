@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "label": "developer-fixture-only",
+  "baseline_label": "developer-baseline-only",
+  "notice": "Example schema only. Not a measured capacity, failover, inference, or memory claim.",
+  "required_fields": [
+    "label",
+    "baseline_label",
+    "notice",
+    "generated_at",
+    "config",
+    "environment",
+    "samples",
+    "phases",
+    "buckets"
+  ],
+  "phases": [
+    {
+      "name": "read",
+      "fields": ["attempted", "completed", "errors", "error_rate", "throughput_rps", "p50_ms", "p95_ms", "p99_ms"]
+    },
+    {
+      "name": "mutation",
+      "fields": ["attempted", "completed", "errors", "error_rate", "throughput_rps", "p50_ms", "p95_ms", "p99_ms"]
+    }
+  ]
+}

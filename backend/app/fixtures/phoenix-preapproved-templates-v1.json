@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "label": "simulation-preapproved-templates-v1",
+  "notice": "Catalog only. Matching a template never auto-approves or executes recovery; an authenticated operator must still confirm.",
+  "templates": [
+    {
+      "id": "p3-latency-redistribute",
+      "severity_tier": "P3",
+      "title": "Redistribute simulated load on latency spike",
+      "when": [
+        "alert_severity == P3",
+        "signal == latency_spike",
+        "coordinator_healthy == true"
+      ],
+      "suggested_option_id": "civil-bridge",
+      "bounded_effects": [
+        "Record simulated redistribute-load intent",
+        "No external network mutation",
+        "Fully reversible via PHOENIX rollback"
+      ],
+      "requires_operator_confirm": true,
+      "policy_id": "pol-sim-p3-redistribute-001"
+    },
+    {
+      "id": "p3-telemetry-gap-watch",
+      "severity_tier": "P3",
+      "title": "Watch-only telemetry gap",
+      "when": [
+        "alert_severity == P3",
+        "signal == telemetry_gap"
+      ],
+      "suggested_option_id": null,
+      "bounded_effects": [
+        "Surface watch state in console",
+        "No workflow transition without operator"
+      ],
+      "requires_operator_confirm": true,
+      "policy_id": "pol-sim-p3-watch-001"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+---
+alwaysApply: true
+---
+
+# CITIZEN Sensor Grid (Layer 05)
+
+Community-sensor early-warning rehearsal lives in `backend/app/citizen_grid.py`
+and `frontend/src/components/CitizenGridPanel.tsx`.
+
+## Hard safety boundaries
+
+- Model consenting phones as **anonymous district aggregates only**. Never store
+  device identity, precise location, audio, or per-device records.
+- Never compute or expose trajectory, source location, launch origin, impact
+  point, coordinates, interception, or any targeting output. `PROHIBITED_TERMS`
+  guards district names and is asserted over projection data fields in tests.
+- The grid produces **corroboration evidence for a human advisory decision**. It
+  is not a forecast, not ground truth, and authorizes nothing.
+- Safety prose in `notice` / `guardrail` / `privacy` may negate prohibited terms
+  (for example "no targeting"); data fields must never contain them.
+
+## Behavioral invariants
+
+- Advisory readiness requires `MIN_CONFIRMING_DISTRICTS` (3) independent
+  districts **and** `CONFIRM_CONFIDENCE` (55%) corroboration. One district can
+  never reach `confirmed`.
+- Only an operator may approve an advisory via `POST /citizen/warn`; it records
+  `citizen.advisory_approved` with `effect: simulation-only` and transmits
+  nothing.
+- Channel fallback is a fixed ladder: SMS → community FM → offline mesh/siren.
+  Jamming the last channel leaves no active channel and blocks advisory.
+- Sensor attrition must degrade gracefully: at 30% loss a confirmed grid stays
+  confirmed and advisory-ready.
+- `synthetic_lead_seconds` (240) is a labeled fixture value, never a measured or
+  promised warning time.
+
+## Conventions
+
+- All state changes flow through `ScenarioState._append_event` under
+  `source: "citizen-grid"` so the canonical audit chain and replay stay intact.
+- Grid state serializes into the snapshot as `citizen` (projection) and
+  `citizen_state` (restore payload); keep `fixtureSnapshot.ts` in sync.
+- Add safety and guardrail tests in `backend/tests/test_citizen_grid.py` with
+  every fixture or threshold change.
